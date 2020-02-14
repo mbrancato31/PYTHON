@@ -249,9 +249,9 @@ for row in range(3, len(names) + 3):
     sheet.cell(row, 15).value = person[row - 3].daysOff
 
 
-wb.save('C:/Users/Maurizio Brancato/PycharmProjects/Hello/horarioValet/schedule/' + curWeekSchedule + '.xlsx')
+wb.save()
 
-# monthWB = xs.load_workbook('C:/Users/Maurizio Brancato/PycharmProjects/Hello/horarioValet/schedule/' + curMonthSchedule + '.xlsx')
+# monthWB = xs.load_workbook()
 # monthSheet = monthWB['Sheet1']
 # weeks = []
 # n = monthSheet.cell(1, 1).value
@@ -296,9 +296,9 @@ wb.save('C:/Users/Maurizio Brancato/PycharmProjects/Hello/horarioValet/schedule/
 #     monthSheet.cell(1, 1).value = monthSheet.cell(1, 1).value + 1
 #     monthSheet.cell(monthSheet.cell(1, 1).value + 1, 1).value = curWeekSchedule
 #
-#     monthWB.save('C:/Users/Maurizio Brancato/PycharmProjects/Hello/horarioValet/schedule/' + curMonthSchedule + '.xlsx')
+#     monthWB.save()
 #
-# allTimeWB = xs.load_workbook('C:/Users/Maurizio Brancato/PycharmProjects/Hello/horarioValet/schedule/allTimeStatsValet.xlsx')
+# allTimeWB = xs.load_workbook()
 # allTimeSheet = allTimeWB['Sheet1']
 #
 # weeks2 = []

@@ -156,7 +156,7 @@ def trackBeaver(carrier, track_number):
         return 'CHECK: exception (BEAVER)'
 
 
-file = 'C:\\Users\\mbran\\Documents\\vscode\\python\\trackorders\\test.xlsx'
+file = ''
 
 try:
     wb = xs.load_workbook(file)
