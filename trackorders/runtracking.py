@@ -90,72 +90,6 @@ def trackFedex(carrier, tn):
     except:
         return 'CHECK: exception (FEDEX)'
 
-
-def trackXpo(carrier, tn):
-    try:
-        url = 'https://app.ltl.xpo.com/appjs/tracking/details/' + tn
-        browser = webdriver.Chrome(chrome_options=chrome_options)
-        browser.get(url)
-        time.sleep(time_load)
-        html = browser.execute_script(
-            "return document.documentElement.outerHTML")
-        sel_soup = BeautifulSoup(html, 'html.parser')
-        text = sel_soup.find(
-            class_='trackingResults-dateTitle').getText()
-        date = text.split()[0]
-        message = 'XPO', date
-        return message
-    except:
-        return 'CHECK: exception(XPO)'
-
-
-def trackKn(carrier, tn):
-    try:
-        url = 'https://onlineservices.kuehne-nagel.com/public-tracking/shipments/141324967?query=' + tn
-        browser = webdriver.Chrome(chrome_options=chrome_options)
-        browser.get(url)
-        time.sleep(time_load)
-        html = browser.execute_script(
-            "return document.documentElement.outerHTML")
-        sel_soup = BeautifulSoup(html, 'html.parser')
-        text = sel_soup.find(
-            class_='completion').getText()
-
-        month, day, year,  t, t = text.split()
-        months = {
-            'Jan': '01',
-            'Feb': '02',
-            'Mar': '03',
-            'Apr': '04',
-            'May': '05',
-            'Jun': '06',
-            'Jul': '07',
-            'Aug': '08',
-            'Sep': '09',
-            'Oct': '10',
-            'Nov': '11',
-            'Dec': '12',
-        }
-
-        d, t = day.split(',')
-
-        if month in months:
-            message = 'KN', months[month] + '/' + d + '/' + year
-        else:
-            message = 'KN CHECK'
-        return message
-    except:
-        return 'CHECK: exception (KN)'
-
-
-def trackBeaver(carrier, track_number):
-    try:
-        message = 'Beaver'
-        return message
-    except:
-        return 'CHECK: exception (BEAVER)'
-
-
 file = ''
 
 try:
@@ -167,7 +101,7 @@ except:
 
 i = 1
 date_list = []
-carrierList = ['UPS', 'DHL', 'FEDEX', 'XPO', 'BEAVER', 'KN']
+carrierList = ['UPS', 'DHL', 'FEDEX']
 while sheet.cell(i, 7).value != None:
     line = sheet.cell(i, 7).value
 
@@ -179,12 +113,6 @@ while sheet.cell(i, 7).value != None:
         date = trackDhl(carrier, track_number)
     if carrier.upper() == 'FEDEX':
         date = trackFedex(carrier, track_number)
-    if carrier.upper() == 'XPO':
-        date = trackXpo(carrier, track_number)
-    if carrier.upper() == 'BEAVER':
-        date = trackBeaver(carrier, track_number)
-    if carrier.upper() == 'KN':
-        date = trackKn(carrier, track_number)
     elif carrier.upper() not in carrierList:
         date = 'CHECK: carrier not found'
 
